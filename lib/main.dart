@@ -1,10 +1,13 @@
 export 'package:mobile_applications_project/main.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_applications_project/calcLogic.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_applications_project/Button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'package:mobile_applications_project/converter.dart';
+import 'package:mobile_applications_project/historyPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(CalcLogic());
@@ -25,6 +28,9 @@ class Calculator extends State<CalcLogic> {
   String _history = '';
   String _expression = '';
   final navigatorKey = GlobalKey<NavigatorState>();
+  String storehystory = '';
+  List<String> previousCalc = [];
+  SharedPreferences prefs;
 
   void numClick(String text) {
     setState(() {
@@ -45,16 +51,22 @@ class Calculator extends State<CalcLogic> {
     });
   }
 
-  void evaluate(String text) {
+  void evaluate(String text) async {
     Parser p = Parser();
     Expression exp = p.parse(_expression);
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
+    DateTime now = DateTime.now();
+    String formatDate = DateFormat('MMM dd, yyyy kk:mm').format(now);
 
     setState(() {
       _history = _expression;
       _expression = eval.toString();
+      storehystory = 'Equations:: " $_history = $_expression " \n timestamp:: $formatDate';
     });
+    prefs = await SharedPreferences.getInstance();
+    prefs.setString(DateTime.now().toString(), storehystory);
+    setState(() {previousCalc.add(storehystory);});
   }
 
   @override
@@ -99,6 +111,13 @@ class Calculator extends State<CalcLogic> {
                 );
               },
               child: Text("converter")),
+          RaisedButton(
+              onPressed: () {
+                navigatorKey.currentState.push(
+                  MaterialPageRoute(builder: (context) => HistoryPage()),
+                );
+              },
+              child: Text("history")),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
