@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "759227642063",
+    "project_id": "note-f43ac",
+    "storage_bucket": "note-f43ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759227642063:android:f4cdbb6b3e7fde5df447ba",
+        "android_client_info": {
+          "package_name": "com.noteapp.flutter_homework"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759227642063-96dhqpvsjt0i4skiit4mtuekbenuf3e5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsnmAnLtehlgVxkMdI3fHrkAXNnTyeKSk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "759227642063-96dhqpvsjt0i4skiit4mtuekbenuf3e5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

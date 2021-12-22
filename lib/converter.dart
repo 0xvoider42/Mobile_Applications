@@ -1,14 +1,9 @@
-export 'package:mobile_applications_project/main.dart';
 import 'package:mobile_applications_project/calcLogic.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_applications_project/Button.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:math_expressions/math_expressions.dart';
-import 'package:mobile_applications_project/converter.dart';
-
-void main() {
-  runApp(CalcLogic());
-}
+import 'package:mobile_applications_project/calcLogic.dart';
+import 'package:mobile_applications_project/main.dart';
 
 // teal 0xFF00796B
 // light teal 0xFF80CBC4
@@ -16,12 +11,16 @@ void main() {
 // pale orange 0xFFFFB74D
 // pale pink 0xFFF48FB1
 
-class Calc extends StatefulWidget {
+class RouteToConverter extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => Calculator();
+  State<StatefulWidget> createState() => Converter();
 }
 
-class Calculator extends State<CalcLogic> {
+class Converter extends State<RouteToConverter> {
+  final controller_number = TextEditingController();
+  final my_form_key = GlobalKey<FormState>();
+
+  String textToShow = "";
   String _history = '';
   String _expression = '';
   final navigatorKey = GlobalKey<NavigatorState>();
@@ -39,28 +38,25 @@ class Calculator extends State<CalcLogic> {
     });
   }
 
-  void clear(String text) {
+  void KmToMiles(String text) {
+    double number = double.parse(_expression);
+    double result = number * 1.60934;
     setState(() {
-      _expression = '';
+      _expression = result.toString();
     });
   }
 
-  void evaluate(String text) {
-    Parser p = Parser();
-    Expression exp = p.parse(_expression);
-    ContextModel cm = ContextModel();
-    double eval = exp.evaluate(EvaluationType.REAL, cm);
-
+  void MilesToKm(String text) {
+    double number = double.parse(_expression);
+    double result = number * 0.621371;
     setState(() {
-      _history = _expression;
-      _expression = eval.toString();
+      _expression = result.toString();
     });
   }
 
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Calculator',
+      title: 'Converter',
       navigatorKey: navigatorKey,
       home: Scaffold(
         backgroundColor: Color(0xFF00796B),
@@ -95,35 +91,27 @@ class Calculator extends State<CalcLogic> {
           RaisedButton(
               onPressed: () {
                 navigatorKey.currentState.push(
-                  MaterialPageRoute(builder: (context) => RouteToConverter()),
+                  MaterialPageRoute(builder: (context) => CalcLogic()),
                 );
               },
-              child: Text("converter")),
+              child: Text("calculator")),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Button(
-                text: 'AC',
-                callback: allClear,
+                text: 'km/mil',
+                callback: KmToMiles,
                 fillColor: 0xFFFF6E40,
               ),
               Button(
-                text: 'C',
-                callback: clear,
+                text: 'mil/km',
+                callback: MilesToKm,
                 fillColor: 0xFF6C807F,
               ),
               Button(
-                text: '%',
-                callback: numClick,
-                fillColor: 0xFF80CBC4,
-                textColor: 0xFFFF6E40,
-              ),
-              Button(
-                text: '/',
-                callback: numClick,
-                textSize: 30,
-                fillColor: 0xFF80CBC4,
-                textColor: 0xFFFF6E40,
+                text: 'AC',
+                callback: allClear,
+                fillColor: 0xFFFF6E40,
               ),
             ],
           ),
@@ -142,13 +130,6 @@ class Calculator extends State<CalcLogic> {
                 text: '9',
                 callback: numClick,
               ),
-              Button(
-                text: '*',
-                callback: numClick,
-                textSize: 30,
-                fillColor: 0xFF80CBC4,
-                textColor: 0xFFFF6E40,
-              ),
             ],
           ),
           Row(
@@ -165,13 +146,6 @@ class Calculator extends State<CalcLogic> {
               Button(
                 text: '6',
                 callback: numClick,
-              ),
-              Button(
-                text: '-',
-                callback: numClick,
-                textSize: 30,
-                fillColor: 0xFF80CBC4,
-                textColor: 0xFFFF6E40,
               ),
             ],
           ),
@@ -190,13 +164,6 @@ class Calculator extends State<CalcLogic> {
                 text: '3',
                 callback: numClick,
               ),
-              Button(
-                text: '+',
-                callback: numClick,
-                textSize: 30,
-                fillColor: 0xFF80CBC4,
-                textColor: 0xFFFF6E40,
-              ),
             ],
           ),
           Row(
@@ -214,13 +181,6 @@ class Calculator extends State<CalcLogic> {
               Button(
                 text: '00',
                 callback: numClick,
-              ),
-              Button(
-                text: '=',
-                callback: evaluate,
-                textSize: 30,
-                fillColor: 0xFF80CBC4,
-                textColor: 0xFFFF6E40,
               ),
             ],
           ),
