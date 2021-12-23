@@ -1,16 +1,9 @@
 # mobile_applications_project
 
-A new Flutter project.
+This is a repository for Mobile Applications course.
+To access different applications:
+1. clone the repository.
+2. run `git pull`
+3. check out through branches to view different applications
+4. you should have flutter installed with either xcode or android SDK preferably otherwise web works as well.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
