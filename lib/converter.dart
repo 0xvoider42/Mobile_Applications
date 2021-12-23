@@ -2,8 +2,7 @@ import 'package:mobile_applications_project/calcLogic.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_applications_project/Button.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_applications_project/calcLogic.dart';
-import 'package:mobile_applications_project/main.dart';
+import 'package:mobile_applications_project/firebaseAPI.dart';
 
 // teal 0xFF00796B
 // light teal 0xFF80CBC4
@@ -44,6 +43,7 @@ class Converter extends State<RouteToConverter> {
     setState(() {
       _expression = result.toString();
     });
+    addDataToFirebase(_expression);
   }
 
   void MilesToKm(String text) {
@@ -52,6 +52,7 @@ class Converter extends State<RouteToConverter> {
     setState(() {
       _expression = result.toString();
     });
+    addDataToFirebase(_expression);
   }
 
   Widget build(BuildContext context) {

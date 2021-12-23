@@ -8,6 +8,7 @@ import 'package:math_expressions/math_expressions.dart';
 import 'package:mobile_applications_project/converter.dart';
 import 'package:mobile_applications_project/historyPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mobile_applications_project/firebaseAPI.dart';
 
 void main() {
   runApp(CalcLogic());
@@ -62,11 +63,15 @@ class Calculator extends State<CalcLogic> {
     setState(() {
       _history = _expression;
       _expression = eval.toString();
-      storehystory = 'Equations:: " $_history = $_expression " \n timestamp:: $formatDate';
+      storehystory =
+          'Equations:: " $_history = $_expression " \n timestamp:: $formatDate';
     });
     prefs = await SharedPreferences.getInstance();
     prefs.setString(DateTime.now().toString(), storehystory);
-    setState(() {previousCalc.add(storehystory);});
+    setState(() {
+      previousCalc.add(storehystory);
+    });
+    addDataToFirebase(_expression);
   }
 
   @override
